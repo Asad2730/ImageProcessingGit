@@ -11,6 +11,8 @@ class User(models.Model):
     type = models.CharField(max_length=20)
     image  = models.ImageField(upload_to='images')
 
+    
+
 
 class Course(models.Model):
      id = models.AutoField(primary_key=True)
