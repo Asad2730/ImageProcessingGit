@@ -75,14 +75,14 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'imageprocess',
-        'USER': 'root',
-        'PASSWORD': 'Asad1234',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'imageprocess',
+    #     'USER': 'root',
+    #     'PASSWORD': 'Asad1234',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '3306',
+    # }
 }
 
 # Password validation
