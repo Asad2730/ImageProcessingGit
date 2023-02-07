@@ -2,7 +2,6 @@ package initializers
 
 import (
 	"log"
-	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -12,7 +11,7 @@ var DB *gorm.DB
 
 func ConnectDb() {
 
-	dsn := os.Getenv("DB_URL")
+	dsn := "host=localhost user=postgres password=123 dbname=ImageProcessing port=5432 sslmode=disable"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	DB = db
 
