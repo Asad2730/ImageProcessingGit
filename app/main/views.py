@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404,get_list_or_404
+from django.shortcuts import render,redirect
 import requests
 
 # Create your views here.
@@ -15,7 +15,30 @@ def login(request):
         return render(request, 'login.html')
     else: 
         return render(request, 'login.html')
-        
+
+
+def signUp(request):
+    if request.method == 'POST': 
+         name = request.POST.get('name')
+         email = request.POST.get('email') 
+         password = request.POST.get('password')
+         address = request.POST.get('address')
+         type = request.POST.get('type') 
+         contact = request.POST.get('contact')
+         data = {
+            "name":name,
+            "email":email,
+            "password":password,
+            "address":address,
+            "type":type,
+            "contact":contact,
+            "image":"./img.jpg"
+            }
+         url = URL+'signup'
+         requests.post(url,json=data)
+         return redirect('login')        
+    else: 
+        return render(request,'signup.html')        
             
    
 
