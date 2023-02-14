@@ -65,5 +65,36 @@ def teacherAdmin(request):
     return render(request,'admin/users.html',context)  
             
    
+def updateUser(request,id):
+       if request.method == 'POST':     
+         name = request.POST.get('name')
+         email = request.POST.get('email') 
+         password = request.POST.get('password')
+         address = request.POST.get('address')
+         contact = request.POST.get('contact')
+         files = request.FILES
+         data = {
+            "name":name,
+            "email":email,
+            "password":password,
+            "address":address,
+            "contact":contact,
+          
+            }
+         url = URL+'updateUser/'+id     
+         requests.post(url,json=data,files=files)
+         return redirect('/adminHome')        
+       else:
+        url = URL+'singleUser/'+id
+        data = requests.get(url).json() 
+        context = {'ob':data}
+        return render(request,'admin/update.html',context)
 
+
+def deleteUser(request,id):
+       if request.method == 'POST':     
+         url = URL+'deleteUser/'+id     
+         requests.delete(url)
+         return redirect('/adminHome')        
+        
 

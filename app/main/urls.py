@@ -7,4 +7,5 @@ urlpatterns = [
     path('adminAddUser/',views.adminAddUser),
     path('adminStudent/',views.studentAdmin),
     path('adminTeacher/',views.teacherAdmin),
+    path('singleUser/<int:id>/',views.updateUser),
 ]

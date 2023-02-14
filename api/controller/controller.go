@@ -56,3 +56,22 @@ func AdminUsers(c *gin.Context) {
 	initializers.DB.Where("type = ?", ty).Select(&user)
 	c.JSON(200, &user)
 }
+
+func SingleUser(c *gin.Context) {
+	var user models.User
+	initializers.DB.Where("id = ?", c.Param("id")).First(&user)
+	c.JSON(200, &user)
+}
+
+func UpdateUser(c *gin.Context) {
+	var user models.User
+	c.BindJSON(&user)
+	initializers.DB.Where("id = ?", c.Param("id")).Updates(&user)
+	c.JSON(200, &user)
+}
+
+func DeleteUser(c *gin.Context) {
+	var user models.User
+	initializers.DB.Where("id = ?", c.Param("id")).Delete(&user)
+	c.JSON(200, "User Deleted")
+}
