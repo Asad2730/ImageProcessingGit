@@ -18,7 +18,9 @@
         {% for i in ob %}
         <tr>
             <th scope="row"></th>
-            <td>{{i.image}}</td>
+            <td>
+                <img src="http://localhost:3000/{{ i.image }}" height="40px" width="60px" />
+            </td>
             <td>{{i.name}}</td>
             <td>{{i.email}}</td>
             <td>{{i.address}}</td>

@@ -3,6 +3,7 @@ package controller
 import (
 	"api/initializers"
 	"api/models"
+
 	"strings"
 
 	"fmt"
@@ -13,12 +14,25 @@ import (
 )
 
 func AddUser(c *gin.Context) {
+	var user models.User
+	c.BindJSON(&user)
+	initializers.DB.Create(&user)
+	c.JSON(200, &user)
+}
+
+func GetImage(c *gin.Context) {
+	filename := c.Param("filename")
+	c.File("images/" + filename)
+}
+
+func UploadImage(c *gin.Context) {
 	file, header, err := c.Request.FormFile("image")
 
 	if err != nil {
 		fmt.Println("Error uploading file:", err.Error())
 		return
 	}
+
 	defer file.Close()
 
 	out, err := os.Create("images/" + header.Filename)
@@ -34,11 +48,8 @@ func AddUser(c *gin.Context) {
 		return
 	}
 
-	var user models.User
-	user.Image = "images/" + header.Filename
-	c.BindJSON(&user)
-	initializers.DB.Create(&user)
-	c.JSON(200, user)
+	c.JSON(200, "Image uploaded")
+
 }
 
 func Login(c *gin.Context) {
@@ -51,10 +62,9 @@ func Login(c *gin.Context) {
 
 func AdminUsers(c *gin.Context) {
 	ty := c.Param("type")
-	var user models.User
-	fmt.Println("TYPE", ty)
-	initializers.DB.Where("type = ?", ty).Select(&user)
-	c.JSON(200, &user)
+	var users []models.User
+	initializers.DB.Find(&users, "type = ?", ty)
+	c.JSON(200, &users)
 }
 
 func SingleUser(c *gin.Context) {

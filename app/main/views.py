@@ -24,9 +24,9 @@ def adminHome(request):
     return render(request,'admin/adminHome.html',conetext)
 
 
+
 def adminAddUser(request):
-       if request.method == 'POST': 
-        
+       if request.method == 'POST':       
          name = request.POST.get('name')
          email = request.POST.get('email') 
          password = request.POST.get('password')
@@ -34,21 +34,29 @@ def adminAddUser(request):
          type = request.POST.get('type') 
          contact = request.POST.get('contact')
          files = request.FILES
-         data = {
+         path = "images/"+request.FILES['image'].name
+         jsn = {
             "name":name,
             "email":email,
             "password":password,
             "address":address,
             "type":type,
             "contact":contact,
-          
+             "image":path,
             }
-         url = URL+'addUser'     
-         requests.post(url,json=data,files=files)
+         data = {'file': files, 'json_data': jsn}   
+        
+         url = URL+'uploadImage'     
+         response = requests.post(url,files=data['file'])
+         if response.ok:
+           url = URL+'addUser'     
+           requests.post(url,json=data['json_data'])
          return redirect('/adminHome')        
        else: 
         return render(request,'admin/add.html')
      
+
+
 
 
 def studentAdmin(request):
