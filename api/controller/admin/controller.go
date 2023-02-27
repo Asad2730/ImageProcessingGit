@@ -3,15 +3,26 @@ package controller
 import (
 	"api/initializers"
 	"api/models"
-
-	"strings"
-
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
+
+func GetCount(c *gin.Context) {
+	var students int64
+	var teachers int64
+
+	initializers.DB.Model(models.User{}).Where("type = ?", "student").Count(&students)
+	initializers.DB.Model(models.User{}).Where("type = ?", "teacher").Count(&teachers)
+
+	c.JSON(200, gin.H{
+		"students": students,
+		"teachers": teachers,
+	})
+}
 
 func AddUser(c *gin.Context) {
 	var user models.User
@@ -84,4 +95,11 @@ func DeleteUser(c *gin.Context) {
 	var user models.User
 	initializers.DB.Where("id = ?", c.Param("id")).Delete(&user)
 	c.JSON(200, "User Deleted")
+}
+
+func AddCourse(c *gin.Context) {
+	var course models.Course
+	c.BindJSON(&course)
+	initializers.DB.Create(&course)
+	c.JSON(200, &course)
 }

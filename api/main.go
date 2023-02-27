@@ -1,7 +1,7 @@
 package main
 
 import (
-	"api/controller"
+	controller "api/controller/admin"
 	"api/initializers"
 
 	"github.com/gin-gonic/gin"
@@ -23,5 +23,6 @@ func main() {
 	r.PUT("/updateUser/:id", controller.UpdateUser)
 	r.GET("/images/:filename", controller.GetImage)
 	r.DELETE("/deleteUser/:id", controller.DeleteUser)
+	r.GET("/getCount", controller.GetCount)
 	r.Run(":3000")
 }

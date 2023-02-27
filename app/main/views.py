@@ -20,8 +20,10 @@ def login(request):
 
 
 def adminHome(request):
-    conetext = {'ob':'admin/dashboard.html'}
-    return render(request,'admin/adminHome.html',conetext)
+    url = URL+'getCount'
+    response = requests.get(url).json()
+    context = {'ob':'admin/dashboard.html','count':response}
+    return render(request,'admin/adminHome.html',context)
 
 
 
@@ -33,6 +35,7 @@ def adminAddUser(request):
          address = request.POST.get('address')
          type = request.POST.get('type') 
          contact = request.POST.get('contact')
+         request.FILES['image'].name = email
          files = request.FILES
          path = "images/"+request.FILES['image'].name
          jsn = {
@@ -99,10 +102,10 @@ def updateUser(request,id):
         return render(request,'admin/update.html',context)
 
 
-def deleteUser(request,id):
-       if request.method == 'POST':     
-         url = URL+'deleteUser/'+id     
+def deleteUser(request,id):     
+         url = URL+'deleteUser/'+str(id)     
          requests.delete(url)
-         return redirect('/adminHome')        
+         return redirect('/adminHome')
+
         
 
