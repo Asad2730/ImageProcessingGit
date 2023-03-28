@@ -1,0 +1,62 @@
+{% extends 'admin/dashboard.html' %}
+
+{% block body %}
+<section>
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-5">
+
+                            <form method="post" action=".">
+                                {% csrf_token %}
+
+                                <div class="form-outline mb-8">
+                                    <input id="name" name="name" type="text" id="form3Example1cg"
+                                        class="form-control form-control-lg" placeholder="enter name" />
+                                    <br />
+                                </div>
+
+
+                                <div class="form-outline mb-8">
+
+                                    <select name="discipline" id="discipline" class="form-control form-control-lg">
+                                        <option value="IT">IT</option>
+                                        <option value="CS">CS</option>
+                                        <option value="IT/CS">IT/CS</option>
+                                    </select>
+                                    <br />
+                                </div>
+
+                                <div class="form-outline mb-8">
+                                    <input id="qualityPoints" name="qualityPoints" type="number" id="form3Example4cg"
+                                        class="form-control form-control-lg" placeholder="enter quality Points" />
+                                    <br />
+                                </div>
+
+                     
+                                <div class="form-outline mb-8">
+                                    <input id="code" name="code" type="text" id="form3Example4cg"
+                                        class="form-control form-control-lg" placeholder="eneter course code" />
+                                    <br />
+                                </div>
+
+                              
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit"
+                                        class="btn btn-success btn-block btn-lg gradient-custom-6 text-body">Add</button>
+                                    <br />
+                                </div>
+
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -36,7 +36,7 @@ def adminAddUser(request):
          type = request.POST.get('type') 
          contact = request.POST.get('contact')
          request.FILES['image'].name = email
-         files = request.FILES
+         files =  request.FILES
          path = "images/"+request.FILES['image'].name
          jsn = {
             "name":name,
@@ -66,7 +66,6 @@ def studentAdmin(request):
     url = URL +'adminUsers/student'
     res = requests.get(url).json()
     context = {'ob':res}
-    print('context',context)
     return render(request,'admin/users.html',context)
 
 def teacherAdmin(request):
@@ -107,5 +106,51 @@ def deleteUser(request,id):
          requests.delete(url)
          return redirect('/adminHome')
 
+
+def addCourse(request):
+       if request.method == 'POST':
+           data = {
+               'name':request.POST.get('name'),
+               'discipline':request.POST.get('discipline'),
+               'qualityPoints':float(request.POST.get('qualityPoints')),
+               'code':request.POST.get('code'),
+           }
+           url = URL+'addCourse/'
+           print('DATA',data)
+           requests.post(url,json=data)
+           return redirect('/adminHome')  
+       else:    
+        return render(request,'admin/addCourse.html')
+       
+
+
+def courses(request):
+    url = URL +'getCourses'
+    response = requests.get(url).json()
+    context = {'ob':response}
+    print('context',context)
+    return render(request,'admin/courses.html',context)
+
+
+
+
+def deleteCourse(request,id):     
+         url = URL+'deleteCourse/'+str(id)     
+         requests.delete(url)
+         return redirect('/adminHome')
+
+
+
+
+def enrollment(request):
+     url1 = URL +'getCourses'
+     response1 = requests.get(url1).json()
+     url2 = URL +'adminUsers/student'
+     response2 = requests.get(url2).json()
+     context = {'courses':response1,'students':response2}
+     return render(request,'admin/enrollment.html',context)
+
+
+      
         
 

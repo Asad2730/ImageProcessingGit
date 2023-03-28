@@ -24,5 +24,8 @@ func main() {
 	r.GET("/images/:filename", controller.GetImage)
 	r.DELETE("/deleteUser/:id", controller.DeleteUser)
 	r.GET("/getCount", controller.GetCount)
+	r.POST("/addCourse",controller.AddCourse)
+	r.DELETE("/deleteCourse/:id", controller.DeleteCourse)
+	r.GET("/getCourses",controller.GetCourses)
 	r.Run(":3000")
 }

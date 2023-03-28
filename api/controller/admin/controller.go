@@ -103,3 +103,16 @@ func AddCourse(c *gin.Context) {
 	initializers.DB.Create(&course)
 	c.JSON(200, &course)
 }
+
+
+func DeleteCourse(c *gin.Context){
+	var course models.Course
+	initializers.DB.Where("id = ?",c.Param("id")).Delete(&course)
+	c.JSON(200, "Course Deleted")
+}
+
+func GetCourses(c *gin.Context){
+	var courses []models.Course
+	initializers.DB.Find(&courses)
+	c.JSON(200,&courses)
+}
