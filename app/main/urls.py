@@ -13,4 +13,5 @@ urlpatterns = [
     path('adminCourses/',views.courses),
     path('deleteCourse/<int:id>/',views.deleteCourse),
     path('enrollment/',views.enrollment),
+    path('allocate/',views.allocate),
 ]

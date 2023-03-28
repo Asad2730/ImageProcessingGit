@@ -1,0 +1,76 @@
+{% extends 'admin/dashboard.html' %}
+
+{% block body %}
+<section>
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-5">
+
+                            <form method="post" action="." enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                       
+
+                                <div class="form-outline mb-8">
+
+                                    <select name="uid" id="uid" class="form-control form-control-lg">
+                                        {% if teacher %}
+                                        {% for i in teacher %}
+                                        <option value='{{i.id}}'>{{i.name}}</option>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                    <br />
+                                </div>
+                               
+                                <div class="form-outline mb-8">
+                                    <input id="semester" name="semester" type="number" id="form3Example1cg"
+                                        class="form-control form-control-lg" placeholder="enter semester" />
+                                    <br />
+                                </div>
+
+                                <div class="form-outline mb-8">
+                                    <input id="year" name="year" type="number" id="form3Example3cg"
+                                        class="form-control form-control-lg" placeholder="enter year" />
+                                    <br />
+                                </div>
+
+                                <div class="form-outline mb-8">
+                                    <input id="section" name="section" type="text" id="form3Example4cg"
+                                        class="form-control form-control-lg" placeholder="enter section" />
+                                    <br />
+                                </div>
+
+                                
+                                <div class="form-outline mb-8">
+
+                                    <select name="cid" id="cid" class="form-control form-control-lg" multiple>
+                                        {% if courses %}
+                                        {% for i in courses %}
+                                        <option value='{{i.id}}'>{{i.name}}</option>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                    <br />
+                                </div>
+
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit"
+                                        class="btn btn-success btn-block btn-lg gradient-custom-6 text-body">Add</button>
+                                    <br />
+                                </div>
+
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

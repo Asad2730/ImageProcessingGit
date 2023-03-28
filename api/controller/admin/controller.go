@@ -7,7 +7,6 @@ import (
 	"io"
 	"os"
 	"strings"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -115,4 +114,32 @@ func GetCourses(c *gin.Context){
 	var courses []models.Course
 	initializers.DB.Find(&courses)
 	c.JSON(200,&courses)
+}
+
+
+func AddEnrollment(c *gin.Context){
+	var enrolment models.Enrollment
+	c.BindJSON(&enrolment)
+	initializers.DB.Create(&enrolment)
+	c.JSON(200, &enrolment)
+}
+
+func GetEnrollment(c *gin.Context){
+	var enrolments []models.Enrollment
+	initializers.DB.Find(&enrolments)
+	c.JSON(200, &enrolments)
+}
+
+func DeleteEnrollment(c *gin.Context){
+	var enrolment models.Enrollment
+	initializers.DB.Where("id = ?",c.Param("id")).Delete(&enrolment)
+	c.JSON(200, "Enrollment Deleted")
+}
+
+
+func Allocate(c *gin.Context){
+	var allocate models.Allocate
+	c.BindJSON(&allocate)
+	initializers.DB.Create(&allocate)
+	c.JSON(200, &allocate)
 }

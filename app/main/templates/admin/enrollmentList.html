@@ -1,0 +1,39 @@
+{% extends 'admin/dashboard.html' %}
+
+{% block body %}
+
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name </th>
+            <th scope="col">Discipline</th>
+            <th scope="col">Quality Points</th>
+            <th scope="col">code</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if ob %}
+        {% for i in ob %}
+        <tr>
+            <th scope="row"></th>
+    
+            <td>{{i.name}}</td>
+            <td>{{i.discipline}}</td>
+            <td>{{i.qualityPoints}}</td>
+            <td>{{i.code}}</td>
+            <form method="get" action="/deleteCourse/{{i.id}}">
+                {% csrf_token %}
+                <td>
+                    <button type="submit">Delete </button>
+                </td>
+            </form>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+
+
+{% endblock %}

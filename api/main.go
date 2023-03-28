@@ -27,5 +27,9 @@ func main() {
 	r.POST("/addCourse",controller.AddCourse)
 	r.DELETE("/deleteCourse/:id", controller.DeleteCourse)
 	r.GET("/getCourses",controller.GetCourses)
+	r.POST("/addEnrollment",controller.AddEnrollment)
+	r.DELETE("/deleteEnrollment/:id", controller.DeleteEnrollment)
+	r.GET("/getEnrollment",controller.GetEnrollment)
+	r.POST("/addAllocate",controller.Allocate)
 	r.Run(":3000")
 }

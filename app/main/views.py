@@ -128,7 +128,6 @@ def courses(request):
     url = URL +'getCourses'
     response = requests.get(url).json()
     context = {'ob':response}
-    print('context',context)
     return render(request,'admin/courses.html',context)
 
 
@@ -143,12 +142,65 @@ def deleteCourse(request,id):
 
 
 def enrollment(request):
+    if request.method == 'POST':
+       url = URL+'addEnrollment'     
+       cid = request.POST.getlist('cid')
+       uid = request.POST.get('uid')
+       section = request.POST.get('section')
+       year = request.POST.get('year')
+       semester = request.POST.get('semester')
+       for i in cid:
+        data = {
+           'uid':int(uid),
+           'cid':int(i),
+           'section':section,
+           'year':int(year,10),
+           'semester':semester
+        }
+        requests.post(url,json=data)
+       return redirect('/adminHome')
+    else: 
      url1 = URL +'getCourses'
      response1 = requests.get(url1).json()
      url2 = URL +'adminUsers/student'
      response2 = requests.get(url2).json()
      context = {'courses':response1,'students':response2}
      return render(request,'admin/enrollment.html',context)
+    
+
+
+def getEnrolledStudents(request):
+    url = URL +'getEnrollment'
+    response = requests.get(url).json()
+    context = {'ob':response}
+    return render(request,'admin/enrollmentList.html',context)
+
+
+def allocate(request):
+    if request.method == 'POST':
+       url = URL+'addAllocate'     
+       cid = request.POST.getlist('cid')
+       uid = request.POST.get('uid')
+       section = request.POST.get('section')
+       year = request.POST.get('year')
+       semester = request.POST.get('semester')
+       for i in cid:
+        data = {
+           'uid':int(uid),
+           'cid':int(i),
+           'section':section,
+           'year':int(year,10),
+           'semester':semester
+        }
+        requests.post(url,json=data)
+       return redirect('/adminHome')
+    else: 
+     url1 = URL +'getCourses'
+     response1 = requests.get(url1).json()
+     url2 = URL +'adminUsers/teacher'
+     response2 = requests.get(url2).json()
+     context = {'courses':response1,'teacher':response2}
+     return render(request,'admin/allocate.html',context)
 
 
       
